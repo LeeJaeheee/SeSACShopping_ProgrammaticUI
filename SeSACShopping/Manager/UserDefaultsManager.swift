@@ -54,7 +54,10 @@ class UserDefaultsManager {
         set { ud.set(newValue, forKey: UDKey.likeList.rawValue) }
     }
     
-    func addSearchHistory(_ newHistory: String) {
+    func addSearchHistory(_ newHistory: String, index: Int? = nil) {
+        if let index = index ?? searchHistory.firstIndex(of: newHistory) {
+            searchHistory.remove(at: index)
+        }
         searchHistory.insert(newHistory, at: 0)
     }
     

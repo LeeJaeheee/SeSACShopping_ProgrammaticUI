@@ -185,7 +185,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showResult(text: udManager.searchHistory[indexPath.row])
+        let text = udManager.searchHistory[indexPath.row]
+        udManager.addSearchHistory(text, index: indexPath.row)
+        tableView.reloadData()
+        showResult(text: text)
     }
     
 }
