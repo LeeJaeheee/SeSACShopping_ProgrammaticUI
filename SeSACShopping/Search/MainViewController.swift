@@ -9,14 +9,14 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    @IBOutlet var searchBar: UISearchBar!
-    @IBOutlet var historyLabel: UILabel!
-    @IBOutlet var deleteButton: UIButton!
-    @IBOutlet var tableView: UITableView!
+    let searchBar = UISearchBar()
+    let historyLabel = UILabel()
+    let deleteButton = UIButton()
+    let tableView = UITableView()
     
-    @IBOutlet var emptyView: UIView!
-    @IBOutlet var emptyImageView: UIImageView!
-    @IBOutlet var emptyLabel: UILabel!
+    let emptyView = UIView()
+    let emptyImageView = UIImageView()
+    let emptyLabel = UILabel()
     
     let udManager = UserDefaultsManager.shared
     
@@ -30,7 +30,9 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationItem()
-        configureUI()
+        configureHierarchy()
+        configureView()
+        setupConstraints()
         configureTableView()
         
         deleteButton.addTarget(self, action: #selector(deleteHistory), for: .touchUpInside)
@@ -49,16 +51,26 @@ class MainViewController: UIViewController {
 
 }
 
-extension MainViewController {
-    
+extension MainViewController: VCProtocol {
     func configureNavigationItem() {
         navigationController?.navigationBar.tintColor = .white
         navigationItem.backButtonTitle = ""
     }
+
+    func configureHierarchy() {
+        view.addSubview(searchBar)
+        view.addSubview(historyLabel)
+        view.addSubview(deleteButton)
+        view.addSubview(tableView)
+        view.addSubview(emptyView)
+        emptyView.addSubview(emptyImageView)
+        emptyView.addSubview(emptyLabel)
+    }
     
-    func configureUI() {
+    func configureView() {
         isEmpty = udManager.searchHistory.isEmpty
         
+        searchBar.delegate = self
         searchBar.placeholder = "브랜드, 상품, 프로필, 태그 등"
         searchBar.searchBarStyle = .minimal
         
@@ -66,7 +78,10 @@ extension MainViewController {
         historyLabel.font = .boldSystemFont(ofSize: 16)
         
         deleteButton.setTitle("모두 지우기", for: .normal)
+        deleteButton.setTitleColor(.accent, for: .normal)
         deleteButton.titleLabel?.font = .boldSystemFont(ofSize: 15)
+        
+        emptyView.backgroundColor = .systemBackground
         
         emptyImageView.image = .empty
         
@@ -74,14 +89,59 @@ extension MainViewController {
         emptyLabel.font = .boldSystemFont(ofSize: 18)
     }
     
+    func setupConstraints() {
+        searchBar.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(48)
+        }
+        
+        historyLabel.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.leading.equalTo(8)
+            make.height.equalTo(44)
+        }
+        
+        deleteButton.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.trailing.equalTo(-8)
+            make.height.equalTo(44)
+            
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(historyLabel.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().multipliedBy(0.9)
+            make.width.equalToSuperview().multipliedBy(0.85)
+            make.height.equalTo(emptyImageView.snp.width).multipliedBy(236.0/327.0)
+        }
+        
+        emptyLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(emptyImageView.snp.bottom).offset(24)
+            make.leading.greaterThanOrEqualToSuperview().offset(50)
+            make.trailing.lessThanOrEqualToSuperview().offset(-50)
+            make.height.equalTo(28)
+        }
+    }
+    
     func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HistoryTableViewCell")
     }
     
     func showResult(text: String) {
-        let sb = UIStoryboard(name: "SearchResult", bundle: nil)
-        let vc = sb.instantiateViewController(withIdentifier: SearchResultViewController.identifier) as! SearchResultViewController
+        let vc = SearchResultViewController()
         vc.navTitle = text
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -155,4 +215,8 @@ extension MainViewController: UISearchBarDelegate {
         view.endEditing(true)
     }
     
+}
+
+#Preview {
+    MainViewController()
 }

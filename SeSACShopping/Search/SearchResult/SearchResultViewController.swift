@@ -69,9 +69,9 @@ enum APIRequestType {
 
 class SearchResultViewController: UIViewController {
     
-    @IBOutlet var countLabel: UILabel!
-    @IBOutlet var tagCollectionView: UICollectionView!
-    @IBOutlet var resultCollectionView: UICollectionView!
+    let countLabel = UILabel()
+    let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: CollectionViewType.tagCollectionView.layout)
+    let resultCollectionView = UICollectionView(frame: .zero, collectionViewLayout: CollectionViewType.resultCollectionView.layout)
     
     let apiManager = APIManager()
     
@@ -92,7 +92,9 @@ class SearchResultViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationItem()
-        configureUI()
+        configureHierarchy()
+        configureView()
+        setupConstraints()
 
         configureCollectionView(collectionView: tagCollectionView, type: .tagCollectionView)
         configureCollectionView(collectionView: resultCollectionView, type: .resultCollectionView)
@@ -139,14 +141,17 @@ class SearchResultViewController: UIViewController {
     
 }
 
-extension SearchResultViewController {
+extension SearchResultViewController: VCProtocol {
     
-    func configureNavigationItem() {
-        navigationItem.title = navTitle
-        navigationItem.backButtonTitle = ""
+    func configureHierarchy() {
+        view.addSubview(countLabel)
+        view.addSubview(tagCollectionView)
+        view.addSubview(resultCollectionView)
     }
     
-    func configureUI() {
+    func configureView() {
+        view.backgroundColor = .systemBackground
+        
         countLabel.font = .boldSystemFont(ofSize: 14)
         countLabel.textColor = .accent
         
@@ -154,16 +159,43 @@ extension SearchResultViewController {
         resultCollectionView.tag = CollectionViewType.resultCollectionView.rawValue
     }
     
+    func setupConstraints() {
+        countLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+            make.leading.equalToSuperview().inset(16)
+            make.trailing.lessThanOrEqualToSuperview().offset(-16)
+            make.height.equalTo(22)
+        }
+        
+        tagCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(countLabel.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(52)
+        }
+        
+        resultCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(tagCollectionView.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+    
+    func configureNavigationItem() {
+        navigationItem.title = navTitle
+        navigationItem.backButtonTitle = ""
+    }
+    
     func configureCollectionView(collectionView: UICollectionView, type: CollectionViewType) {
         collectionView.delegate = self
         collectionView.dataSource = self
-        if type == .resultCollectionView {
+  
+        switch type {
+        case .tagCollectionView:
+            collectionView.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.identifier)
+        case .resultCollectionView:
             collectionView.prefetchDataSource = self
+            collectionView.register(ResultCollectionViewCell.self, forCellWithReuseIdentifier: ResultCollectionViewCell.identifier)
         }
-        
-        let xib = UINib(nibName: type.cellIdentifier, bundle: nil)
-        collectionView.register(xib, forCellWithReuseIdentifier: type.cellIdentifier)
-        collectionView.collectionViewLayout = type.layout
     }
     
 }
@@ -212,7 +244,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
 
         case .resultCollectionView:
             selectedIndex = indexPath
-            let vc = storyboard?.instantiateViewController(withIdentifier: ProductDetailViewController.identifier) as! ProductDetailViewController
+            let vc = ProductDetailViewController()
             vc.data = resultList[indexPath.item]
             navigationController?.pushViewController(vc, animated: true)
         }

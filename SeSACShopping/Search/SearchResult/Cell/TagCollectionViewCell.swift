@@ -9,15 +9,24 @@ import UIKit
 
 class TagCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet var tagLabel: UILabel!
+    let tagLabel = UILabel()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        tagLabel.font = .systemFont(ofSize: 15)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         setCornerRadius(8)
         setBorder(color: .white, width: 1)
+        
+        contentView.addSubview(tagLabel)
+        tagLabel.font = .systemFont(ofSize: 15)
+        tagLabel.snp.makeConstraints { make in
+            make.height.equalTo(16)
+            make.edges.equalToSuperview().inset(8)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 }

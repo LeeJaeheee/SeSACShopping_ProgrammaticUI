@@ -10,7 +10,7 @@ import WebKit
 
 class ProductDetailViewController: UIViewController {
 
-    @IBOutlet var webView: WKWebView!
+    let webView = WKWebView()
     
     let udManager = UserDefaultsManager.shared
     
@@ -22,6 +22,9 @@ class ProductDetailViewController: UIViewController {
         guard let data = data else { return }
 
         configureNavigationItem(data: data)
+        configureHierarchy()
+        configureView()
+        setupConstraints()
         loadWebView(productId: data.productId)
     }
     
@@ -31,7 +34,21 @@ class ProductDetailViewController: UIViewController {
 
 }
 
-extension ProductDetailViewController {
+extension ProductDetailViewController: VCProtocol {
+    
+    func configureHierarchy() {
+        view.addSubview(webView)
+    }
+    
+    func configureView() {
+        view.backgroundColor = .systemBackground
+    }
+    
+    func setupConstraints() {
+        webView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
     
     func configureNavigationItem(data: ResultItem) {
         navigationItem.title = data.removeTagTitle
