@@ -17,7 +17,7 @@ enum Setting: String, CaseIterable {
 
 class SettingViewController: UIViewController {
     
-    @IBOutlet var tableView: UITableView!
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     let list = Setting.allCases
     
@@ -25,8 +25,10 @@ class SettingViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationItem()
+        configureHierarchy()
+        configureView()
+        setupConstraints()
         configureTableView()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,19 +39,36 @@ class SettingViewController: UIViewController {
 
 }
 
-extension SettingViewController {
+extension SettingViewController: VCProtocol {
+    
     func configureNavigationItem() {
         navigationController?.navigationBar.tintColor = .white
         navigationItem.title = "설정"
         navigationItem.backButtonTitle = ""
     }
     
+    func configureHierarchy() {
+        view.addSubview(tableView)
+    }
+    
+    func configureView() {
+        view.backgroundColor = .systemBackground
+    }
+    
+    func setupConstraints() {
+        tableView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
     func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         
-        let xib = UINib(nibName: UserTableViewCell.identifier, bundle: nil)
-        tableView.register(xib, forCellReuseIdentifier: UserTableViewCell.identifier)
+        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.identifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingTableViewCell")
+        
+        tableView.sectionHeaderHeight = 0
     }
 }
 
@@ -57,10 +76,6 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 0 : CGFloat.leastNormalMagnitude
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,7 +92,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell")!
-            
+            cell.textLabel?.font = .systemFont(ofSize: 13)
             cell.textLabel?.text = list[indexPath.row].rawValue
             cell.selectionStyle = .none
             
@@ -87,8 +102,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            let sb = UIStoryboard(name: "Profile", bundle: nil)
-            let vc = sb.instantiateViewController(withIdentifier: ProfileViewController.identifier) as! ProfileViewController
+            let vc = ProfileViewController()
             vc.type = .edit
             navigationController?.pushViewController(vc, animated: true)
         } else if indexPath.item == Setting.allCases.firstIndex(of: .처음부터시작하기) {
