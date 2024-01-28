@@ -34,9 +34,7 @@
 		D26AF2802B65EE310028CA37 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AF2612B65EE300028CA37 /* SettingViewController.swift */; };
 		D26AF2812B65EE310028CA37 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AF2632B65EE300028CA37 /* UserTableViewCell.swift */; };
 		D26AF2822B65EE310028CA37 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D26AF2642B65EE300028CA37 /* UserTableViewCell.xib */; };
-		D26AF2832B65EE310028CA37 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D26AF2662B65EE300028CA37 /* Profile.storyboard */; };
 		D26AF2842B65EE310028CA37 /* ProfileImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AF2682B65EE310028CA37 /* ProfileImageCollectionViewCell.swift */; };
-		D26AF2852B65EE310028CA37 /* ProfileImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D26AF2692B65EE310028CA37 /* ProfileImageCollectionViewCell.xib */; };
 		D26AF2862B65EE310028CA37 /* ProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AF26A2B65EE310028CA37 /* ProfileImageViewController.swift */; };
 		D26AF2872B65EE310028CA37 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AF26B2B65EE310028CA37 /* ProfileViewController.swift */; };
 		D26AF2892B65EE550028CA37 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D26AF2882B65EE550028CA37 /* .gitignore */; };
@@ -75,9 +73,7 @@
 		D26AF2612B65EE300028CA37 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		D26AF2632B65EE300028CA37 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		D26AF2642B65EE300028CA37 /* UserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
-		D26AF2662B65EE300028CA37 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		D26AF2682B65EE310028CA37 /* ProfileImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageCollectionViewCell.swift; sourceTree = "<group>"; };
-		D26AF2692B65EE310028CA37 /* ProfileImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		D26AF26A2B65EE310028CA37 /* ProfileImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageViewController.swift; sourceTree = "<group>"; };
 		D26AF26B2B65EE310028CA37 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D26AF2882B65EE550028CA37 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -238,7 +234,6 @@
 		D26AF2652B65EE300028CA37 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				D26AF2662B65EE300028CA37 /* Profile.storyboard */,
 				D26AF2672B65EE300028CA37 /* Cell */,
 				D26AF26A2B65EE310028CA37 /* ProfileImageViewController.swift */,
 				D26AF26B2B65EE310028CA37 /* ProfileViewController.swift */,
@@ -250,7 +245,6 @@
 			isa = PBXGroup;
 			children = (
 				D26AF2682B65EE310028CA37 /* ProfileImageCollectionViewCell.swift */,
-				D26AF2692B65EE310028CA37 /* ProfileImageCollectionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -335,11 +329,9 @@
 				D26AF2892B65EE550028CA37 /* .gitignore in Resources */,
 				D26AF2772B65EE310028CA37 /* SearchResult.storyboard in Resources */,
 				D26AF2372B65EB610028CA37 /* LaunchScreen.storyboard in Resources */,
-				D26AF2832B65EE310028CA37 /* Profile.storyboard in Resources */,
 				D26AF2732B65EE310028CA37 /* TagCollectionViewCell.xib in Resources */,
 				D26AF2822B65EE310028CA37 /* UserTableViewCell.xib in Resources */,
 				D26AF2722B65EE310028CA37 /* ResultCollectionViewCell.xib in Resources */,
-				D26AF2852B65EE310028CA37 /* ProfileImageCollectionViewCell.xib in Resources */,
 				D26AF2342B65EB610028CA37 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

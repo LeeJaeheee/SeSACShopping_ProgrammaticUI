@@ -9,8 +9,8 @@ import UIKit
 
 class ProfileImageViewController: UIViewController {
 
-    @IBOutlet var profileImageView: UIImageView!
-    @IBOutlet var collectionView: UICollectionView!
+    let profileImageView = UIImageView()
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
     
     let udManager = UserDefaultsManager.shared
     
@@ -19,9 +19,10 @@ class ProfileImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureUI()
+        configureHierarchy()
+        configureView()
+        setupConstraints()
         configureCollectionView()
-        configureLayout()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -32,23 +33,48 @@ class ProfileImageViewController: UIViewController {
 
 }
 
-extension ProfileImageViewController {
+extension ProfileViewController {
     
-    func configureUI() {
+}
+
+extension ProfileImageViewController: CollectionViewProtocol {
+    
+    func configureHierarchy() {
+        view.addSubview(profileImageView)
+        view.addSubview(collectionView)
+    }
+    
+    func configureView() {
+        view.backgroundColor = .systemBackground
+        
         profileImageView.image = UIImage(named: selectedImageName)
-        profileImageView.setRound()
+        DispatchQueue.main.async {
+            self.profileImageView.setRound()
+        }
         profileImageView.setDefaultBorder()
+    }
+    
+    func setupConstraints() {
+        profileImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.size.equalTo(view.snp.width).multipliedBy(0.4)
+        }
+        
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(profileImageView.snp.bottom).offset(20)
+            make.horizontalEdges.bottom.equalToSuperview()
+        }
     }
     
     func configureCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        let xib = UINib(nibName: ProfileImageCollectionViewCell.identifier, bundle: nil)
-        collectionView.register(xib, forCellWithReuseIdentifier: ProfileImageCollectionViewCell.identifier)
+        collectionView.register(ProfileImageCollectionViewCell.self, forCellWithReuseIdentifier: ProfileImageCollectionViewCell.identifier)
     }
     
-    func configureLayout() {
+    func configureCollectionViewLayout() -> UICollectionViewFlowLayout {
         let spacing: CGFloat = 16
         let width = (UIScreen.main.bounds.width - (spacing * 3 + 40)) / 4
         
@@ -57,7 +83,8 @@ extension ProfileImageViewController {
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = spacing
-        collectionView.collectionViewLayout = layout
+        
+        return layout
     }
     
 }
@@ -89,4 +116,8 @@ extension ProfileImageViewController: UICollectionViewDelegate, UICollectionView
         
     }
     
+}
+
+#Preview {
+    ProfileImageViewController()
 }

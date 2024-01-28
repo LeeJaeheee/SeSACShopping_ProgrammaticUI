@@ -15,6 +15,7 @@ import UIKit
 
 @objc protocol VCProtocol: ConfigureProtocol {
     @objc optional func configureNavigationItem()
+    @objc optional func setupActions()
 }
 
 protocol CollectionViewProtocol: VCProtocol {

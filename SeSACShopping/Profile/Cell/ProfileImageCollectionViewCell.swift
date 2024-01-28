@@ -9,11 +9,19 @@ import UIKit
 
 class ProfileImageCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet var imageView: UIImageView!
+    let imageView = UIImageView()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
+        contentView.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func draw(_ rect: CGRect) {
