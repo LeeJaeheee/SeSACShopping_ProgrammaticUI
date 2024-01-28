@@ -39,6 +39,7 @@
 		D26AF2912B65FA970028CA37 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AF2902B65FA970028CA37 /* MainTabBarController.swift */; };
 		D26AF2932B65FDA50028CA37 /* ConfigureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AF2922B65FDA50028CA37 /* ConfigureProtocol.swift */; };
 		D26AF2992B6604320028CA37 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AF2982B6604320028CA37 /* OnboardingViewController.swift */; };
+		D26AF29B2B66853A0028CA37 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AF29A2B6685390028CA37 /* EmptyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		D26AF2902B65FA970028CA37 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		D26AF2922B65FDA50028CA37 /* ConfigureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureProtocol.swift; sourceTree = "<group>"; };
 		D26AF2982B6604320028CA37 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		D26AF29A2B6685390028CA37 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				D26AF2482B65EE300028CA37 /* MainViewController.swift */,
+				D26AF29A2B6685390028CA37 /* EmptyView.swift */,
 				D26AF2492B65EE300028CA37 /* SearchResult */,
 			);
 			path = Search;
@@ -341,6 +344,7 @@
 				D26AF2712B65EE310028CA37 /* TagCollectionViewCell.swift in Sources */,
 				D26AF2992B6604320028CA37 /* OnboardingViewController.swift in Sources */,
 				D26AF2702B65EE310028CA37 /* SearchResultViewController.swift in Sources */,
+				D26AF29B2B66853A0028CA37 /* EmptyView.swift in Sources */,
 				D26AF22D2B65EB5F0028CA37 /* SceneDelegate.swift in Sources */,
 				D26AF2932B65FDA50028CA37 /* ConfigureProtocol.swift in Sources */,
 				D26AF26D2B65EE310028CA37 /* APIKey.swift in Sources */,

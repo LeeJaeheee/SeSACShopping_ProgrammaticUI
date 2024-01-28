@@ -73,6 +73,15 @@ class SearchResultViewController: UIViewController {
     let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: CollectionViewType.tagCollectionView.layout)
     let resultCollectionView = UICollectionView(frame: .zero, collectionViewLayout: CollectionViewType.resultCollectionView.layout)
     
+    let emptyView = EmptyView(text: "찾으시는 상품이 없어요")
+    var isEmpty = false {
+        didSet {
+            emptyView.isHidden = !isEmpty
+            tagCollectionView.isHidden = isEmpty
+            resultCollectionView.isHidden = isEmpty
+        }
+    }
+    
     let apiManager = APIManager()
     
     var navTitle = ""
@@ -113,6 +122,14 @@ class SearchResultViewController: UIViewController {
     func apiRequest(type: APIRequestType) {
         
         apiManager.callRequest(queryString: queryString) { value in
+            
+            if value.total == 0 {
+                self.isEmpty = true
+                return
+            } else {
+                self.isEmpty = false
+            }
+            
             switch type {
                 
             case .setup, .changeSort:
@@ -147,10 +164,14 @@ extension SearchResultViewController: VCProtocol {
         view.addSubview(countLabel)
         view.addSubview(tagCollectionView)
         view.addSubview(resultCollectionView)
+        view.addSubview(emptyView)
     }
     
     func configureView() {
         view.backgroundColor = .systemBackground
+        emptyView.isHidden = true
+        tagCollectionView.isHidden = true
+        resultCollectionView.isHidden = true
         
         countLabel.font = .boldSystemFont(ofSize: 14)
         countLabel.textColor = .accent
@@ -176,6 +197,10 @@ extension SearchResultViewController: VCProtocol {
         resultCollectionView.snp.makeConstraints { make in
             make.top.equalTo(tagCollectionView.snp.bottom)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     

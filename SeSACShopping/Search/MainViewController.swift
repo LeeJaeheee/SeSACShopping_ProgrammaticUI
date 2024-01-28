@@ -14,9 +14,7 @@ class MainViewController: UIViewController {
     let deleteButton = UIButton()
     let tableView = UITableView()
     
-    let emptyView = UIView()
-    let emptyImageView = UIImageView()
-    let emptyLabel = UILabel()
+    let emptyView = EmptyView(text: "최근 검색어가 없어요")
     
     let udManager = UserDefaultsManager.shared
     
@@ -63,8 +61,6 @@ extension MainViewController: VCProtocol {
         view.addSubview(deleteButton)
         view.addSubview(tableView)
         view.addSubview(emptyView)
-        emptyView.addSubview(emptyImageView)
-        emptyView.addSubview(emptyLabel)
     }
     
     func configureView() {
@@ -81,12 +77,6 @@ extension MainViewController: VCProtocol {
         deleteButton.setTitleColor(.accent, for: .normal)
         deleteButton.titleLabel?.font = .boldSystemFont(ofSize: 15)
         
-        emptyView.backgroundColor = .systemBackground
-        
-        emptyImageView.image = .empty
-        
-        emptyLabel.text = "최근 검색어가 없어요"
-        emptyLabel.font = .boldSystemFont(ofSize: 18)
     }
     
     func setupConstraints() {
@@ -117,21 +107,7 @@ extension MainViewController: VCProtocol {
             make.top.equalTo(searchBar.snp.bottom)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
-        emptyImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().multipliedBy(0.9)
-            make.width.equalToSuperview().multipliedBy(0.85)
-            make.height.equalTo(emptyImageView.snp.width).multipliedBy(236.0/327.0)
-        }
-        
-        emptyLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(emptyImageView.snp.bottom).offset(24)
-            make.leading.greaterThanOrEqualToSuperview().offset(50)
-            make.trailing.lessThanOrEqualToSuperview().offset(-50)
-            make.height.equalTo(28)
-        }
+
     }
     
     func configureTableView() {
