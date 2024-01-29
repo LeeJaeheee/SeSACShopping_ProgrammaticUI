@@ -9,7 +9,7 @@ import UIKit
 
 class UserTableViewCell: UITableViewCell {
     
-    let profileImageView = UIImageView()
+    let profileImageView = RoundImageView(image: nil)
     let nicknameLabel = UILabel()
     let likeLabel = UILabel()
     
@@ -24,10 +24,6 @@ class UserTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func draw(_ rect: CGRect) {
-        profileImageView.setRound()
     }
     
     func configureCell() {
@@ -57,7 +53,7 @@ extension UserTableViewCell: ConfigureProtocol {
     }
     
     func configureView() {
-        profileImageView.setDefaultBorder()
+        profileImageView.drawBorder = true
         nicknameLabel.font = .boldSystemFont(ofSize: 22)
         likeLabel.font = .boldSystemFont(ofSize: 14)
     }

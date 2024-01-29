@@ -34,7 +34,7 @@ enum ValidationResult: String {
 
 class ProfileViewController: UIViewController {
 
-    let profileImageView = UIImageView()
+    let profileImageView = RoundImageView(image: nil)
     let cameraImageView = UIImageView()
     let nicknameTextField = UITextField()
     let lineView = UIView()
@@ -75,8 +75,7 @@ class ProfileViewController: UIViewController {
             profileImageView.image = UIImage(named: imageName)
             profileImageName = imageName
         }
-        
-        profileImageView.setRound()
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -166,10 +165,8 @@ extension ProfileViewController: VCProtocol {
                 nicknameTextField.text = nickname
             }
         }
-                
-        profileImageView.setRound()
-        profileImageView.setDefaultBorder()
-        profileImageView.isUserInteractionEnabled = true
+        
+        profileImageView.drawBorder = true
         
         cameraImageView.image = .camera
         cameraImageView.isUserInteractionEnabled = true
