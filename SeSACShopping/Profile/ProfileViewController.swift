@@ -39,7 +39,7 @@ class ProfileViewController: UIViewController {
     let nicknameTextField = UITextField()
     let lineView = UIView()
     let validationLabel = UILabel()
-    let saveButton = UIButton()
+    let saveButton = MainButton(title: "완료")
     
     let udManager = UserDefaultsManager.shared
     
@@ -180,7 +180,6 @@ extension ProfileViewController: VCProtocol {
         validationLabel.font = .systemFont(ofSize: 13)
         validationLabel.textColor = .systemGreen
         
-        saveButton.setDefaultStyle(title: "완료")
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
     }
     
@@ -218,7 +217,6 @@ extension ProfileViewController: VCProtocol {
         saveButton.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(20)
             make.top.equalTo(validationLabel.snp.bottom).offset(32)
-            make.height.equalTo(44)
         }
     }
     

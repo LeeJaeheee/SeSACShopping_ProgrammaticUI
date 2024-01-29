@@ -12,8 +12,8 @@ class EmptyView: UIView {
     let emptyImageView = UIImageView()
     let emptyLabel = UILabel()
 
-    convenience init(text: String) {
-        self.init(frame: .zero)
+    init(text: String) {
+        super.init(frame: .zero)
         
         addSubview(emptyImageView)
         addSubview(emptyLabel)
@@ -39,6 +39,10 @@ class EmptyView: UIView {
             make.trailing.lessThanOrEqualToSuperview().offset(-50)
             make.height.equalTo(28)
         }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }

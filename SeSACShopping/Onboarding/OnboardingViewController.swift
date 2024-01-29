@@ -12,7 +12,7 @@ class OnboardingViewController: UIViewController {
 
     let logoImageView = UIImageView()
     let onboardingImageView = UIImageView()
-    let startButton = UIButton()
+    let startButton = MainButton(title: "시작하기")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,6 @@ extension OnboardingViewController: VCProtocol {
         logoImageView.image = .sesacShopping
         onboardingImageView.image = .onboarding
         
-        startButton.setDefaultStyle(title: "시작하기")
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
     
@@ -67,7 +66,6 @@ extension OnboardingViewController: VCProtocol {
         startButton.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(40)
-            make.height.equalTo(44)
         }
     }
     
