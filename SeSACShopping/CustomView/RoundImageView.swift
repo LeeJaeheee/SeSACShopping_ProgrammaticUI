@@ -14,13 +14,17 @@ class RoundImageView: UIImageView {
             layer.borderWidth = drawBorder ? 5 : 0
         }
     }
-    
-    override init(image: UIImage?) {
+
+    init(image: UIImage?, drawBorder: Bool = false) {
         super.init(image: image)
+        self.drawBorder = drawBorder
         
-        layer.borderColor = UIColor.accent.cgColor
-        clipsToBounds = true
-        isUserInteractionEnabled = true
+        configureView()
+        configureLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {
@@ -29,8 +33,17 @@ class RoundImageView: UIImageView {
         layer.cornerRadius = self.frame.width / 2
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func configureView() {
+        layer.borderWidth = drawBorder ? 5 : 0
+        layer.borderColor = UIColor.accent.cgColor
+        clipsToBounds = true
+        isUserInteractionEnabled = true
     }
 
+    func configureLayout() {
+        self.snp.makeConstraints { make in
+            make.height.equalTo(self.snp.width)
+        }
+    }
+    
 }

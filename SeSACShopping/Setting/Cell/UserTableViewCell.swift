@@ -60,7 +60,7 @@ extension UserTableViewCell: ConfigureProtocol {
     
     func setupConstraints() {
         profileImageView.snp.makeConstraints { make in
-            make.size.equalTo(54)
+            make.width.equalTo(54)
             make.verticalEdges.equalToSuperview().inset(12)
             make.leading.equalTo(16)
         }

@@ -34,7 +34,7 @@ enum ValidationResult: String {
 
 class ProfileViewController: UIViewController {
 
-    let profileImageView = RoundImageView(image: nil)
+    let profileImageView = RoundImageView(image: nil, drawBorder: true)
     let cameraImageView = UIImageView()
     let nicknameTextField = UITextField()
     let lineView = UIView()
@@ -166,8 +166,6 @@ extension ProfileViewController: VCProtocol {
             }
         }
         
-        profileImageView.drawBorder = true
-        
         cameraImageView.image = .camera
         cameraImageView.isUserInteractionEnabled = true
         
@@ -187,7 +185,7 @@ extension ProfileViewController: VCProtocol {
         profileImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.size.equalTo(view.snp.width).multipliedBy(0.23)
+            make.width.equalTo(view.snp.width).multipliedBy(0.23)
         }
 
         cameraImageView.snp.makeConstraints { make in

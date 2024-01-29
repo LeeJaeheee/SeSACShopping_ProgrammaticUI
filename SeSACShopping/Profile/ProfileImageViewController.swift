@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileImageViewController: UIViewController {
 
-    let profileImageView = RoundImageView(image: nil)
+    let profileImageView = RoundImageView(image: nil, drawBorder: true)
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
     
     let udManager = UserDefaultsManager.shared
@@ -48,14 +48,13 @@ extension ProfileImageViewController: CollectionViewProtocol {
         view.backgroundColor = .systemBackground
         
         profileImageView.image = UIImage(named: selectedImageName)
-        profileImageView.drawBorder = true
     }
     
     func setupConstraints() {
         profileImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.size.equalTo(view.snp.width).multipliedBy(0.4)
+            make.width.equalTo(view.snp.width).multipliedBy(0.4)
         }
         
         collectionView.snp.makeConstraints { make in
