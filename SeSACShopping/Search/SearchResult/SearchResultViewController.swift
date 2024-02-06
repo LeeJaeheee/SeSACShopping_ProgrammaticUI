@@ -120,8 +120,18 @@ class SearchResultViewController: UIViewController {
     }
     
     func apiRequest(type: APIRequestType) {
+        //queryString = QueryString(query: "", start: 1, sort: sort.rawValue) //에러핸들링 테스트
         
-        apiManager.callRequest(queryString: queryString) { value in
+        apiManager.callRequest(queryString: queryString) { value, error  in
+            
+            if let error = error {
+                self.showAlert(title: "오류 발생", message: error.errorMessage) {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                return
+            }
+            
+            guard let value else { return }
             
             if value.total == 0 {
                 self.isEmpty = true

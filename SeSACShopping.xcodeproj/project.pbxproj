@@ -42,6 +42,7 @@
 		D26AF29B2B66853A0028CA37 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AF29A2B6685390028CA37 /* EmptyView.swift */; };
 		D2F1B7F02B6791D7002DCFD5 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F1B7EF2B6791D7002DCFD5 /* RoundImageView.swift */; };
 		D2F1B7F22B67A29E002DCFD5 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F1B7F12B67A29E002DCFD5 /* MainButton.swift */; };
+		D2F1B8842B725D6F002DCFD5 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F1B8832B725D6F002DCFD5 /* UIViewController+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		D26AF29A2B6685390028CA37 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		D2F1B7EF2B6791D7002DCFD5 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		D2F1B7F12B67A29E002DCFD5 /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
+		D2F1B8832B725D6F002DCFD5 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 				D26AF25A2B65EE300028CA37 /* UIButton+Extension.swift */,
 				D26AF25B2B65EE300028CA37 /* UIView+Extension.swift */,
 				D26AF25C2B65EE300028CA37 /* UICollectionView+Extension.swift */,
+				D2F1B8832B725D6F002DCFD5 /* UIViewController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				D26AF2762B65EE310028CA37 /* SearchResult.swift in Sources */,
 				D26AF2912B65FA970028CA37 /* MainTabBarController.swift in Sources */,
 				D26AF22B2B65EB5F0028CA37 /* AppDelegate.swift in Sources */,
+				D2F1B8842B725D6F002DCFD5 /* UIViewController+Extension.swift in Sources */,
 				D26AF27A2B65EE310028CA37 /* UIImageView+Extension.swift in Sources */,
 				D26AF2812B65EE310028CA37 /* UserTableViewCell.swift in Sources */,
 				D26AF27C2B65EE310028CA37 /* UIView+Extension.swift in Sources */,

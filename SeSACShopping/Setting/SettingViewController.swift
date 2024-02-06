@@ -106,16 +106,14 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             vc.type = .edit
             navigationController?.pushViewController(vc, animated: true)
         } else if indexPath.item == Setting.allCases.firstIndex(of: .처음부터시작하기) {
-            let alert = UIAlertController(title: "처음부터 시작하기", message: "데이터를 모두 초기화하시겠습니까?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+            showAlert(title: "처음부터 시작하기", message: "데이터를 모두 초기화하시겠습니까?", showCancelButton: true) {
                 if let bundleIdentifier = Bundle.main.bundleIdentifier {
                     UserDefaults.standard.removePersistentDomain(forName: bundleIdentifier)
                 }
                 UserDefaultsManager.shared.setWindow()
-            }))
-            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-            present(alert, animated: true)
+            }
         }
     }
     
 }
+
