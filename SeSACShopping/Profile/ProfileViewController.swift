@@ -16,11 +16,12 @@ enum ProfileImage {
     static let imageList = (1...14).map { "profile\($0)" }
 }
 
-enum ValidationResult: String {
-    case validate = "사용할 수 있는 닉네임이에요"
-    case countError = "2글자 이상 10글자 미만으로 설정해주세요"
-    case symbolError = "닉네임에 @,#,$,% 는 포함할 수 없어요"
-    case numberError = "닉네임에 숫자는 포함할 수 없어요"
+// FIXME: validate case 분리하기
+enum ValidationError: Error {
+    case validate
+    case countError
+    case symbolError
+    case numberError
     
     var textColor: UIColor {
         switch self {
@@ -28,6 +29,19 @@ enum ValidationResult: String {
             UIColor.systemGreen
         case .countError, .symbolError, .numberError:
             UIColor.systemRed
+        }
+    }
+    
+    var errorMessage: String {
+        switch self {
+        case .validate:
+            return "사용할 수 있는 닉네임이에요"
+        case .countError:
+            return "2글자 이상 10글자 미만으로 설정해주세요"
+        case .symbolError:
+            return "닉네임에 @,#,$,% 는 포함할 수 없어요"
+        case .numberError:
+            return "닉네임에 숫자는 포함할 수 없어요"
         }
     }
 }
@@ -47,8 +61,10 @@ class ProfileViewController: UIViewController {
     
     var profileImageName = ""
     
-    var validationResult = ValidationResult.countError {
+    var validationResult = ValidationError.countError {
         didSet {
+            validationLabel.text = validationResult.errorMessage
+            validationLabel.textColor = validationResult.textColor
             switch validationResult {
             case .validate:
                 saveButton.setEnable()
@@ -86,10 +102,12 @@ class ProfileViewController: UIViewController {
     
     @objc func textFieldEditingChanged(_ sender: UITextField) {
         let text = sender.text!
-        validateText(text)
-
-        validationLabel.text = validationResult.rawValue
-        validationLabel.textColor = validationResult.textColor
+        
+        do {
+            try validateText(text)
+        } catch {
+            validationResult = (error as? ValidationError)!
+        }
     }
 
     @objc func keyboardReturnTapped(_ sender: UITextField) {
@@ -116,15 +134,15 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func validateText(_ text: String) {
+    func validateText(_ text: String) throws {
         if !((2...9) ~= text.count) {
-            validationResult = .countError
+            throw ValidationError.countError
         } else if text.filter({ Array("@#$%").contains($0) }).count > 0 {
-            validationResult = .symbolError
+            throw ValidationError.symbolError
         } else if text.filter({ $0.isNumber }).count > 0 {
-            validationResult = .numberError
+            throw ValidationError.numberError
         } else {
-            validationResult = .validate
+            throw ValidationError.validate
         }
     }
     
